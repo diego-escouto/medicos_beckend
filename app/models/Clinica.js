@@ -1,54 +1,54 @@
 const Sequelize = require('sequelize');
 const db = require('./conexao.js');
 
-class Equipamento {
-  #descricao;
-  #bonus_ataque;
-  #bonus_defesa;
+class Clinica {
+  #razaoSocial;
+  #cep;
+  #cnpj;
 
   constructor() {}
 
-  get descricao() {
-    return this.#descricao;
+  get razaoSocial() {
+    return this.#razaoSocial;
   }
-  set descricao(descricao) {
-    this.#descricao = descricao;
-  }
-
-  get bonus_ataque() {
-    return this.#bonus_ataque;
-  }
-  set bonus_ataque(bonus) {
-    this.#bonus_ataque = bonus;
+  set razaoSocial(razaoSocial) {
+    this.#razaoSocial = razaoSocial;
   }
 
-  get bonus_defesa() {
-    return this.#bonus_defesa;
+  get cep() {
+    return this.#cep;
   }
-  set bonus_defesa(bonus) {
-    this.#bonus_defesa = bonus;
-  }
-
-  static findAllByJogadorId(id_jogador) {
-    return EquipamentoModel.findAll({ where: { id_jogador } });
+  set cep(cep) {
+    this.#cep = cep;
   }
 
-  static create(novoEquipamento) {
-    return EquipamentoModel.create(novoEquipamento);
+  get cnpj() {
+    return this.#cnpj;
+  }
+  set cnpj(cnpj) {
+    this.#cnpj = cnpj;
   }
 
-  static update(equipamentoAtualizado) {
-    return EquipamentoModel.update(equipamentoAtualizado);
+  static findAllByMedicoId(id_medico) {
+    return ClinicaModel.findAll({ where: { id_medico } });
   }
 
-  static findOne(id_jogador, id_equipamento) {
-  return EquipamentoModel.findOne({ where: { id: id_equipamento, id_jogador: id_jogador } });
+  static create(novaClinica) {
+    return ClinicaModel.create(novaClinica);
+  }
+
+  static update(clinicaAtualizada) {
+    return ClinicaModel.update(clinicaAtualizada);
+  }
+
+  static findOne(id_medico, id_clinica) {
+  return ClinicaModel.findOne({ where: { id: id_clinica, id_medico: id_medico } });
 }
 
     
-    static async update(dados, id_jogador, id_equipamento) {
+    static async update(dados, id_medico, id_clinica) {
       try {
-        const resultado = await EquipamentoModel.update(dados, { where: { id: id_equipamento, id_jogador: id_jogador } });
+        const resultado = await ClinicaModel.update(dados, { where: { id: id_clinica, id_medico: id_medico} });
         
         console.log('update model', resultado);
         if (resultado) {
@@ -64,29 +64,29 @@ class Equipamento {
   }
   
 
-const EquipamentoModel = db.define('equipamento', {
+const ClinicaModel = db.define('clinica', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  id_jogador: {
+  id_medico: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  descricao: {
+  razaoSocial: {
     type: Sequelize.STRING(80),
     allowNull: false,
   },
-  bonus_ataque: {
+ cep: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  bonus_defesa: {
+  cnpj: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
 });
 
-module.exports = { Equipamento, EquipamentoModel };
+module.exports = { Clinica, EquipamentoModel };
