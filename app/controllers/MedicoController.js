@@ -5,18 +5,18 @@ const schema = require('../schemas/medico/novoMedico.js');
 const validacao = ajv.compile(schema);
 //models
 const models = require('../models/index.js');
-const Jogador = models.jogador.Jogador;
+const Medico = models.medico.Medico;
 
-class JogadorController {
+class MedicoController {
   findAll(request, response) {
-    const equipamentoModel = models.equipamento.EquipamentoModel;
-    Jogador.findAll(equipamentoModel)
+    const clinicaModel = models.clinica.clinicaModel;
+    Medico.findAll(clinicaModel)
       .then((data) => {
         if (data) {
           return response.status(200).json(data);
         } else {
           return response.status(404).json({
-            message: 'jogador nao encontrado',
+            message: 'Médico nao encontrado',
           });
         }
       })
@@ -29,13 +29,13 @@ class JogadorController {
 
   find(request, response) {
     const id = request.params.id;
-    Jogador.findByPk(id)
+    Medico.findByPk(id)
       .then((data) => {
         if (data) {
           return response.status(200).json(data);
         } else {
           return response.status(404).json({
-            message: 'jogador nao encontrado',
+            message: 'Médico nao encontrado',
           });
         }
       })
@@ -56,7 +56,7 @@ class JogadorController {
       });
     }
 
-    Jogador.create(request.body)
+   Medico.create(request.body)
       .then((data) => {
         return response.status(201).json(data);
       })
@@ -70,17 +70,17 @@ class JogadorController {
   update(request, response) {
     const id = request.params.id;
 
-    Jogador.findByPk(id)
-      .then((buscaJogador) => {
-        if (buscaJogador === null) {
+    Medico.findByPk(id)
+      .then((buscaMedico) => {
+        if (buscaMedico === null) {
           return response.status(404).json({
-            message: 'jogador nao encontrado',
+            message: 'Médico nao encontrado',
           });
         } else {
-          Jogador.update(request.body, id).then((atualizado) => {
+          Medico.update(request.body, id).then((atualizado) => {
             if (atualizado) {
-              Jogador.findByPk(id).then((jogadorAtualizado) => {
-                return response.status(200).json(jogadorAtualizado);
+              Medico.findByPk(id).then((medicoAtualizado) => {
+                return response.status(200).json(medicoAtualizado);
               });
             } else {
               return response.status(500).json({
@@ -99,15 +99,15 @@ class JogadorController {
 
   delete(request, response) {
     const id = request.params.id;
-    Jogador.delete(id)
+    Medico.delete(id)
       .then((removido) => {
         if (removido) {
           return response.status(200).json({
-            message: 'jogador excluido com sucesso',
+            message: 'Médico excluido com sucesso',
           });
         } else {
           return response.status(404).json({
-            message: 'jogador nao encontrado',
+            message: 'Médico nao encontrado',
           });
         }
       })
@@ -118,4 +118,4 @@ class JogadorController {
       });
   }
 }
-module.exports = new JogadorController();
+module.exports = new MedicoController();
