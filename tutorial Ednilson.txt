@@ -1,0 +1,50 @@
+NO CMD, ENTRE NA SUA PASTA "CD documents --> cd "diego escouto"
+
+baixe o projeto --> git clone https://github.com/fabiosperotto/api-players-express.git
+
+abra o projeto com o VSCode
+
+no terminal, digite o comando NPM INSTALL
+
+crie o .ENV, mude os dados do documento. 
+
+abra o xampp e dê start no apache, clique em admin, mude a rota para http://localhost:8080 pois vai estar com a sintaxe errada
+
+crie o banco de dados com nome escolhido no .ENV
+
+no terminal do VSCODE, digite o comando NPM RUN DEV para rodar o projeto.
+----------------------------------------------------------------------------
+
+no postman vá em autentication, selecione a opção JWT e cole a chave que está no .ENV  !!Chave-secreta-app@!!
+
+digite a rota http://localhost:8080/cliente
+
+vá em body, raw e mude o tipo de dados para JSON. Adicione os dados para criar um cliente.
+
+{
+	"nome":"cliente 1",
+	"teste@teste.com",
+	"senha":"1234"
+}
+
+digite a rota http://localhost:8080/cliente/login
+
+{
+
+	"teste@teste.com",
+	"senha":"1234"
+}
+----------------------------------------------------------------
+
+PRONTO, VOCÊ ESTÁ LOGADO!!!
+
+digite a rota http://localhost:8080/jogador
+
+{
+    "nome":"jogador 4",
+    "ataque":44,
+    "defesa":44,
+    "pontos_vida":44
+}
+
+
