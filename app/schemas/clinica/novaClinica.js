@@ -1,10 +1,10 @@
 module.exports = {
   type: 'object',
   properties: {
-    descricao: { type: 'string' },
-    bonus_ataque: { type: 'integer' },
-    bonus_defesa: { type: 'integer' },
+    rezaSocial: { type: 'string' },
+    cep: { type: 'string' },
+    cnpj: { type: 'string' },
   },
-  required: ['descricao', 'bonus_ataque', 'bonus_defesa'],
+  required: ['razaoSocial', 'cep', 'cnpj'],
   additionalProperties: false,
 };

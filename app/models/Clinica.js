@@ -80,11 +80,11 @@ const ClinicaModel = db.define('clinica', {
     allowNull: false,
   },
  cep: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   cnpj: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });
