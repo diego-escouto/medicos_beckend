@@ -28,9 +28,9 @@ app.get('/', (request, response) => {
     version: '1.0',
   });
 });
-const jogadorRotas = require('./app/routes/jogador.routes.js');
+const medicoRotas = require('./app/routes/medico.routes.js');
 const clienteRotas = require('./app/routes/cliente.routes.js');
-app.use(jogadorRotas);
+app.use(medicoRotas);
 app.use(clienteRotas);
 
 //RODANDO SERVER

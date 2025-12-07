@@ -1,4 +1,6 @@
 const swaggerJsdoc = require('swagger-jsdoc');
+const config = require('./config');
+const novaClinica = require('./app/schemas/clinica/novaClinica');
 
 const options = {
   definition: {
@@ -6,7 +8,7 @@ const options = {
     info: {
       title: 'Game API - Pack de Aprendizado',
       version: '1.0.0',
-      description: 'Documentação da API RESTful para gestão de Jogadores e Equipamentos.',
+      description: 'Documentação da API RESTful para gestão de Médicos e clinicas',
     },
     servers: [
       {
@@ -26,61 +28,61 @@ const options = {
       },
       // Define os "objetos" que sua API usa
       schemas: {
-        Jogador: {
+        Medico: {
           type: 'object',
           properties: {
-            id: { type: 'integer', description: 'ID do jogador', example: 1 },
-            nome: { type: 'string', description: 'Nome do jogador', example: 'player1' },
-            ataque: { type: 'integer', description: 'Pontos de ataque', example: 40 },
-            defesa: { type: 'integer', description: 'Pontos de defesa', example: 50 },
-            pontos_vida: { type: 'integer', description: 'Pontos de vida', example: 100 },
+            id: { type: 'integer', description: 'ID do medico', example: 1 },
+            nome: { type: 'string', description: 'Nome do medico', example: 'medico1' },
+            crm: { type: 'string', description: 'CRM do medico', example: "123456" },
+            especialidade: { type: 'string', description: 'especialidade do medico', example: "neurologista" },
+
           }
         },
         NovoJogador: {
           type: 'object',
-          required: ['nome', 'ataque', 'defesa'],
+          required: ['nome', 'crm', 'especialidade'],
           properties: {
-            nome: { type: 'string', description: 'Nome do novo jogador' },
-            ataque: { type: 'integer', description: 'Pontos de ataque (máx 100)', maximum: 100 },
-            defesa: { type: 'integer', description: 'Pontos de defesa (máx 100)', maximum: 100 },
-            pontos_vida: { type: 'integer', description: 'Pontos de vida (máx 100)', maximum: 100 }
+            id: { type: 'integer', description: 'ID do medico' },
+            nome: { type: 'string', description: 'Nome do medico' },
+            crm: { type: 'string', description: 'CRM do medico' },
+            especialidade: { type: 'string', description: 'especialidade do medico' },
           }
         },
-        Equipamento: {
-            type: 'object',
-            properties: {
-                id: { type: 'integer', description: 'ID do equipamento' },
-                id_jogador: { type: 'integer', description: 'ID do jogador dono do equipamento' },
-                descricao: { type: 'string', description: 'Descrição do equipamento', example: 'espada' },
-                bonus_ataque: { type: 'integer', description: 'Bônus de ataque fornecido', example: 30 },
-                bonus_defesa: { type: 'integer', description: 'Bônus de defesa fornecido', example: 15 }
-            }
+        Clinica: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', description: 'ID da clinica' },
+            id_medico: { type: 'integer', description: 'ID do medico que trabalha na clinica' },
+            razaoSocial: { type: 'string', description: 'Nome da clinica', example: 'CTR' },
+            cep: { type: 'string', description: 'Cep da clinica', example: "88000000" },
+            cnpj: { type: 'string', description: 'CNPJ da clinica', example: "XX.XXX.XXX/XXXX-XX" }
+          }
         },
-        NovoEquipamento: {
-            type: 'object',
-            required: ['descricao', 'bonus_ataque', 'bonus_defesa'],
-            properties: {
-                descricao: { type: 'string', description: 'Descrição do novo equipamento' },
-                bonus_ataque: { type: 'integer', description: 'Bônus de ataque' },
-                bonus_defesa: { type: 'integer', description: 'Bônus de defesa' }
-            }
+        novaClinica: {
+          type: 'object',
+          required: ['razaoSocial', 'cep', 'cnpj'],
+          properties: {
+            razaoSocial: { type: 'string', description: 'Nome da clinica' },
+            cep: { type: 'string', description: 'Cep da clinica' },
+            cnpj: { type: 'string', description: 'CNPJ da clinica' }
+          }
         },
         Cliente: {
-            type: 'object',
-            required: ['nome', 'email', 'senha'],
-            properties: {
-                nome: { type: 'string', description: 'Nome do cliente' },
-                email: { type: 'string', description: 'Email do cliente' },
-                senha: { type: 'string', description: 'Senha do cliente' }
-            }
+          type: 'object',
+          required: ['nome', 'email', 'senha'],
+          properties: {
+            nome: { type: 'string', description: 'Nome do cliente' },
+            email: { type: 'string', description: 'Email do cliente' },
+            senha: { type: 'string', description: 'Senha do cliente' }
+          }
         },
-         LoginCliente: {
-            type: 'object',
-            required: ['email', 'senha'],
-            properties: {
-                email: { type: 'string', description: 'Email do cliente' },
-                senha: { type: 'string', description: 'Senha do cliente' }
-            }
+        LoginCliente: {
+          type: 'object',
+          required: ['email', 'senha'],
+          properties: {
+            email: { type: 'string', description: 'Email do cliente' },
+            senha: { type: 'string', description: 'Senha do cliente' }
+          }
         }
       }
     }
