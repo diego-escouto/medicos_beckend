@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize');
 const db = require('./conexao.js');
 
-class Jogador {
+class Medico {
   #nome;
-  #ataque;
-  #defesa;
-  #pontos_vida;
+  #crm;
+  #especialidade;
+
 
   // constructor(nome, ataque, defesa, pontos_vida = null ) {
-  constructor() {}
+  constructor() { }
 
   get nome() {
     return this.#nome;
@@ -17,30 +17,25 @@ class Jogador {
     this.#nome = nome;
   }
 
-  get ataque() {
-    return this.#ataque;
+  get crm() {
+    return this.#crm;
   }
-  set ataque(ataque) {
-    this.#ataque = ataque;
-  }
-
-  get defesa() {
-    return this.#defesa;
-  }
-  set defesa(defesa) {
-    this.#defesa = defesa;
+  set crm(crm) {
+    this.#crm = crm;
   }
 
-  get pontos_vida() {
-    return this.#pontos_vida;
+  get especialidade() {
+    return this.#especialidade;
   }
-  set pontos_vida(hp) {
-    this.#pontos_vida = hp;
+  set especialidade(especialidade) {
+    this.#especialidade = especialidade;
   }
+
+
 
   static async findByPk(id) {
     try {
-      const resultado = await JogadorModel.findByPk(id);
+      const resultado = await MedicoModel.findByPk(id);
       if (resultado) {
         return resultado;
       } else {
@@ -51,9 +46,9 @@ class Jogador {
     }
   }
 
-  static async findAll(equipamento) {
+  static async findAll(clinica) {
     try {
-      const resultados = await JogadorModel.findAll({ include: equipamento }); //{where ...}
+      const resultados = await MedicoModel.findAll({ include: clinica }); //{where ...}
       if (resultados) {
         return resultados;
       } else {
@@ -64,23 +59,22 @@ class Jogador {
     }
   }
 
-  static async create(novoJogador) {
+  static async create(novoMedico) {
     try {
-      const jogador = await JogadorModel.create({
-        nome: novoJogador.nome,
-        ataque: novoJogador.ataque,
-        defesa: novoJogador.defesa,
-        pontos_vida: novoJogador.pontos_vida,
+      const medico = await MedicoModel.create({
+        nome: novoMedico.nome,
+        crm: novoMedico.crm,
+        especialidade: novoMedico.especialidade,
       });
-      return jogador;
+      return medico;
     } catch (error) {
       throw error;
     }
   }
 
-  static async update(dados, idjogador) {
+  static async update(dados, id_medico) {
     try {
-      const resultado = await JogadorModel.update(dados, { where: { id: idjogador } });
+      const resultado = await MedicoModel.update(dados, { where: { id: id_medico } });
 
       console.log('update model', resultado);
       if (resultado) {
@@ -95,7 +89,7 @@ class Jogador {
 
   static async delete(id) {
     try {
-      const data = await JogadorModel.findByPk(id);
+      const data = await MedicoModel.findByPk(id);
       if (data) {
         data.destroy();
         return true;
@@ -108,7 +102,7 @@ class Jogador {
   }
 }
 
-const JogadorModel = db.define('jogador', {
+const MedicoModel = db.define('medico', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -119,19 +113,15 @@ const JogadorModel = db.define('jogador', {
     type: Sequelize.STRING(80),
     allowNull: false,
   },
-  ataque: {
-    type: Sequelize.INTEGER,
+  crm: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
-  defesa: {
-    type: Sequelize.INTEGER,
+  especialidade: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
-  pontos_vida: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: 100,
-  },
+  
 });
 
-module.exports = { Jogador, JogadorModel };
+module.exports = { Medico, MedicoModel };
