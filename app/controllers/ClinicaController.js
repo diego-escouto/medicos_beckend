@@ -1,18 +1,18 @@
 const models = require('../models/index.js');
-const Equipamento = models.equipamento.Equipamento;
+const Clinica = models.clinica.Clinica;
 const Ajv = require('ajv');
 const ajv = new Ajv();
 const schema = require('../schemas/clinica/novaClinica.js');
 const validacao = ajv.compile(schema);
 
-class EquipamentoController {
+class ClinicaController {
     findByJogador(request, response) {
-        Equipamento.findAllByJogadorId(request.params.id_jogador)
-            .then((equipamentos) => {
-                if (equipamentos && equipamentos.length > 0) {
-                    return response.status(200).json(equipamentos);
+        Clinica.findAllByMedicoId(request.params.id_medico)
+            .then((clinicas) => {
+                if (clinicas && clinicas.length > 0) {
+                    return response.status(200).json(clinicas);
                 }
-                return response.status(404).json({ message: 'Nenhum equipamento encontrado para este jogador' });
+                return response.status(404).json({ message: 'Nenhuma clinica foi encontrada para este médico' });
             })
             .catch((error) => {
                 return response.status(500).json({ message: error.message });
@@ -29,14 +29,14 @@ class EquipamentoController {
             });
         }
 
-        const equipamentoParaCriar = {
+        const clinicaParaCriar = {
             ...request.body,
-            id_jogador: request.params.id_jogador,
+            id_medico: request.params.id_medico,
         };
 
-        Equipamento.create(equipamentoParaCriar)
-            .then((novoEquipamento) => {
-                return response.status(201).json(novoEquipamento);
+        Clinica.create(clinicaParaCriar)
+            .then((novaClinica) => {
+                return response.status(201).json(novaClinica);
             })
             .catch((erro) => {
                 return response.status(500).json({ message: 'erro no servidor: ' + erro.message });
@@ -55,21 +55,21 @@ class EquipamentoController {
             });
         }
 
-        const equipamentoParaAtualizar = {
+        const clinicaParaAtualizar = {
             ...request.body,
 
         };
 
 
-        Equipamento.update(request.body, request.params.id_jogador, request.params.id_equipamento)
-            .then(equipamentoAtualizado => {
-                if (equipamentoAtualizado == 1) {
-                    Equipamento.findOne(request.params.id_jogador, request.params.id_equipamento).then(data => {
+        Clinica.update(request.body, request.params.id_medico, request.params.id_clinica)
+            .then(clinicaAtualizado => {
+                if (clinicaAtualizado == 1) {
+                    Clinica.findOne(request.params.id_medico, request.params.id_clinica).then(data => {
                         response.send(data);
                     });
                 } else {
                     response.send({
-                        message: `Não foi possível atualizar o equipamento com id=${request.params.id_equipamento}. Talvez o equipamento não foi encontrado ou o req.body está vazio!`
+                        message: `Não foi possível atualizar a clínica com id=${request.params.id_clinica}. Talvez a clínica não foi encontrada ou o req.body está vazio!`
                     });
                 }
             })
@@ -82,4 +82,4 @@ class EquipamentoController {
     }
 }
 
-module.exports = new EquipamentoController();
+module.exports = new ClinicaController();
