@@ -1,10 +1,10 @@
 //validacao de schema
 const Ajv = require('ajv');
 const ajv = new Ajv();
-const schema = require('../schemas/jogador/novoJogador.js');
+const schema = require('../schemas/medico/novoMedico.js');
 const validacao = ajv.compile(schema);
 //models
-const models = require('../models');
+const models = require('../models/index.js');
 const Jogador = models.jogador.Jogador;
 
 class JogadorController {

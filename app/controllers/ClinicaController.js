@@ -1,8 +1,8 @@
-const models = require('../models');
+const models = require('../models/index.js');
 const Equipamento = models.equipamento.Equipamento;
 const Ajv = require('ajv');
 const ajv = new Ajv();
-const schema = require('../schemas/equipamento/novoEquipamento.js');
+const schema = require('../schemas/clinica/novaClinica.js');
 const validacao = ajv.compile(schema);
 
 class EquipamentoController {
