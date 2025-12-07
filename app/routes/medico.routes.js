@@ -1,52 +1,52 @@
 const express = require('express');
 var router = express.Router();
-const jogadorController = require('../controllers/JogadorController.js');
-const equipamentoController = require('../controllers/EquipamentoController.js');
+const jogadorController = require('../controllers/MedicoController.js');
+const equipamentoController = require('../controllers/ClinicaController.js');
 const authMiddleware = require('../middlewares/TokenValido.js');
 
 /**
  * @swagger
  * tags:
- *   - name: Jogador
- *     description: Rotas para gerenciar jogadores
- *   - name: Equipamento
- *     description: Rotas para gerenciar equipamentos de um jogador
- *   - name: Cliente
+ *   - name: medico
+ *     description: Rotas para gerenciar médicos
+ *   - name: clinica
+ *     description: Rotas para gerenciar as clinicas nas quais o médico trabalha
+ *   - name: cliente
  *     description: Rotas para gerenciar os clientes
  */
 
 /**
  * @swagger
- * /jogador:
+ * /medico:
  *   get:
- *     summary: Lista todos os jogadores
- *     description: Retorna uma lista com todos os jogadores e seus equipamentos.
- *     tags: [Jogador]
+ *     summary: Lista todos os medicos
+ *     description: Retorna uma lista com todos os medicos e suas clinicas
+ *     tags: [medico]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       '200':
- *         description: Lista de jogadores retornada com sucesso.
+ *         description: Lista de médicos retornada com sucesso.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Jogador'
+ *                 $ref: '#/components/schemas/medico'
  *       '401':
  *         description: Não autorizado.
  */
-//retorna todos os jogadores
-router.get('/jogador', [authMiddleware.check], jogadorController.findAll);
+//retorna todos os médicos
+router.get('/medico', [authMiddleware.check], medicoController.findAll);
 
 
 /**
  * @swagger
- * /jogador/{id}:
+ * /medico/{id}:
  *   get:
- *     summary: Recupera um jogador pelo seu ID
- *     description: Busca e retorna os dados de um jogador específico.
- *     tags: [Jogador]
+ *     summary: Recupera um médico pelo seu ID
+ *     description: Busca e retorna os dados de um médico específico.
+ *     tags: [medico]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -55,28 +55,28 @@ router.get('/jogador', [authMiddleware.check], jogadorController.findAll);
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do jogador.
+ *         description: O ID do medico.
  *     responses:
  *       '200':
- *         description: Dados do jogador.
+ *         description: Dados do medico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Jogador'
+ *               $ref: '#/components/schemas/medico'
  *       '404':
- *         description: Jogador não encontrado.
+ *         description: medico não encontrado.
  */
-//recupera um jogador pelo seu id
-router.get('/jogador/:id', [authMiddleware.check], jogadorController.find);
+//recupera um medico pelo seu id
+router.get('/medico/:id', [authMiddleware.check], medicoController.find);
 
 
 /**
  * @swagger
- * /jogador:
+ * /medico:
  *   post:
- *     summary: Cria um novo jogador
- *     description: Cadastra um novo jogador no sistema.
- *     tags: [Jogador]
+ *     summary: Cria um novo medico
+ *     description: Cadastra um novo medico no sistema.
+ *     tags: [medico]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -84,23 +84,23 @@ router.get('/jogador/:id', [authMiddleware.check], jogadorController.find);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/NovoJogador'
+ *             $ref: '#/components/schemas/novoMedico'
  *     responses:
  *       '201':
- *         description: Jogador criado com sucesso.
+ *         description: medico criado com sucesso.
  *       '400':
  *         description: Dados inválidos.
  */
-//cria um novo jogador
-router.post('/jogador', [authMiddleware.check], jogadorController.create);
+//cria um novo medico
+router.post('/medico', [authMiddleware.check], medicoController.create);
 
 /**
  * @swagger
- * /jogador/{id}:
+ * /medico/{id}:
  *   put:
- *     summary: Modifica um jogador pelo seu ID
- *     description: Modifica os dados de um jogador específico.
- *     tags: [Jogador]
+ *     summary: Modifica um medico pelo seu ID
+ *     description: Modifica os dados de um medico específico.
+ *     tags: [medico]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -109,27 +109,27 @@ router.post('/jogador', [authMiddleware.check], jogadorController.create);
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do jogador.
+ *         description: O ID do medico.
  *     responses:
  *       '200':
- *         description: Dados do jogador.
+ *         description: Dados do medico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Jogador'
+ *               $ref: '#/components/schemas/medico'
  *       '500':
  *         description: Erro no servidor.
  */
-//atualiza um jogador pelo seu id
-router.put('/jogador/:id', [authMiddleware.check], jogadorController.update);
+//atualiza um medico pelo seu id
+router.put('/medico/:id', [authMiddleware.check], medicoController.update);
 
 /**
  * @swagger
- * /jogador/{id}:
+ * /medico/{id}:
  *   delete:
- *     summary: Exclui um jogador pelo seu ID
- *     description: Apaga os dados de um jogador específico.
- *     tags: [Jogador]
+ *     summary: Exclui um medico pelo seu ID
+ *     description: Apaga os dados de um medico específico.
+ *     tags: [medico]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -138,123 +138,123 @@ router.put('/jogador/:id', [authMiddleware.check], jogadorController.update);
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do jogador.
+ *         description: O ID do medico.
  *     responses:
  *       '200':
- *         description: Dados do jogador.
+ *         description: Dados do medico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Jogador'
+ *               $ref: '#/components/schemas/medico'
  *       '404':
- *         description: Jogador não encontrado.
+ *         description: medico não encontrado.
  */
-//exclui um jogador pelo seu id
-router.delete('/jogador/:id', [authMiddleware.check], jogadorController.delete);
+//exclui um medico pelo seu id
+router.delete('/medico/:id', [authMiddleware.check], medicoController.delete);
 
 /**
  * @swagger
- * /jogador/{id_jogador}/equipamento:
+ * /medico/{id_medico}/clinica:
  *   get:
- *     summary: Cria um novo equipamento para um jogador
- *     description: Adiciona um novo equipamento e o associa a um jogador.
- *     tags: [Equipamento]
+ *     summary: retorna todas as clinicas associadas a um médico
+ *     description: retorna todas as clinicas associadas a um médico.
+ *     tags: [clinica]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_jogador
+ *         name: id_medico
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do jogador que receberá o equipamento.
+ *         description: O ID do médico que receberá a clinica.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/NovoEquipamento'
+ *             $ref: '#/components/schemas/novaClinica'
  *     responses:
  *       '201':
- *         description: Equipamento criado e associado ao jogador.
+ *         description: clinica criada e associada ao médico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Equipamento'
+ *               $ref: '#/components/schemas/clinica'
  *       '400':
- *         description: Dados do equipamento são inválidos.
+ *         description: Dados da clinica são inválidos.
  */
-//retorna todos os equipamentos de um jogador
-router.get('/jogador/:id_jogador/equipamento', [authMiddleware.check], equipamentoController.findByJogador);
+//retorna todas as clinicas associadas a um médico
+router.get('/medico/:id_medico/clinica', [authMiddleware.check], clinicaController.findByJogador);
 
 /**
  * @swagger
- * /jogador/{id_jogador}/equipamento:
+ * /medico/{id_medico}/clinica:
  *   post:
- *     summary: Cria um novo equipamento para um jogador
- *     description: Adiciona um novo equipamento e o associa a um jogador.
- *     tags: [Equipamento]
+ *     summary: cria uma nova clinica e o associa a um médico
+ *     description: cria uma nova clinica e o associa a um médico.
+ *     tags: [clinica]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_jogador
+ *         name: id_medico
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do jogador que receberá o equipamento.
+ *         description: O ID do medico que terá a clinica associada.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/NovoEquipamento'
+ *             $ref: '#/components/schemas/novaClinica'
  *     responses:
  *       '201':
- *         description: Equipamento criado e associado ao jogador.
+ *         description: clinica criada e o associada ao médico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Equipamento'
+ *               $ref: '#/components/schemas/clinica'
  *       '400':
- *         description: Dados do equipamento são inválidos.
+ *         description: Dados da clinica são inválidos.
  */
-//cria um novo equipamento para um jogador
-router.post('/jogador/:id_jogador/equipamento', [authMiddleware.check], equipamentoController.create);
+//cria uma nova clinica e o associa a um médico
+router.post('/medico/:id_medico/clinica', [authMiddleware.check], clinicaController.create);
 
 /**
  * @swagger
- * /jogador/{id_jogador}/equipamento/:id_equipamento:
+ * /medico/{id_medico}/clinica/:id_clinica:
  *   put:
- *     summary: Atualiza um equipamento de um jogador
- *     description: Modifica o equipamento associado a um jogador.
- *     tags: [Equipamento]
+ *     summary: Atualiza uma clinica associada a um médico
+ *     description: Modifica uma clinica associada a um médico.
+ *     tags: [clinica]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_jogador
+ *         name: id_medico
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do jogador que terá o equipamento atualizado.
+ *         description: O ID do medico que terá a clinica atualizada.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/NovoEquipamento'
+ *             $ref: '#/components/schemas/novaClinica'
  *     responses:
  *       '201':
- *         description: Equipamento atualizado com sucesso.
+ *         description: Clinica atualizada com sucesso.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Equipamento'
  *       '500':
- *         description: Erro no servidor.
+ *         description: Dados da clinica inválidos.
  */
-//atualiza o equipamento de um jogador
-router.put('/jogador/:id_jogador/equipamento/:id_equipamento', [authMiddleware.check], equipamentoController.update);
+//Atualiza uma clinica associada a um médico
+router.put('/medico/:id_medico/clinica/:id_clinica', [authMiddleware.check], clinicaController.update);
 
 module.exports = router;
