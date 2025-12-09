@@ -2,7 +2,7 @@
 
 Pacote de programação para disciplinas de desenvolvimento web back-end, utilizando Javascript com Nodejs + [Express](https://expressjs.com/). O Objetivo é servir de exemplo para a elaboração de uma API para comunicar dados em JSON a respeito de uma modelagem. É uma API RESTful com validações de schemas JSON ([Ajv](https://ajv.js.org/)) e para autenticação utiliza JWT Token ([jsownwebtoken](https://github.com/auth0/node-jsonwebtoken)). Na persistência de dados, se utiliza o ORM [Sequelize](https://sequelize.org/) com banco de dados em MySQL.
 
-Este projeto faz parte de uma série de aprendizado em APIs. Nesta mesma série, você pode acessar o mesmo projeto implementado com [PHP e Lumen](https://github.com/fabiosperotto/pratica-api-rest).
+
 
 ## Compatibilidade
 
@@ -92,9 +92,3 @@ Este repositório não inclui uma suíte de testes automatizados. Para verificar
 
 Contribuições bem-vindas: abertura de issues, correções de bugs e melhorias na documentação. Para mudanças maiores, abra uma issue descrevendo a proposta antes de submeter PR.
 
----
-
-Se quiser, eu posso:
-
-- adicionar comentários Swagger (JSDoc) em algumas rotas (`app/routes/medico.routes.js` e `cliente.routes.js`),
-- ou gerar um pequeno exemplo de `.env.example` com as variáveis necessárias.
