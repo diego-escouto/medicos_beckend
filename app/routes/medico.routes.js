@@ -32,7 +32,7 @@ const authMiddleware = require('../middlewares/TokenValido.js');
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/medico'
+ *                 $ref: '#/components/schemas/Medico'
  *       '401':
  *         description: Não autorizado.
  */
@@ -62,7 +62,7 @@ router.get('/medico', [authMiddleware.check], medicoController.findAll);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/medico'
+ *               $ref: '#/components/schemas/Medico'
  *       '404':
  *         description: medico não encontrado.
  */
@@ -79,12 +79,12 @@ router.get('/medico/:id', [authMiddleware.check], medicoController.find);
  *     tags: [medico]
  *     security:
  *       - bearerAuth: []
- *     requestBody: teste
+ *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/novoMedico'
+ *             $ref: '#/components/schemas/NovoMedico'
  *     responses:
  *       '201':
  *         description: medico criado com sucesso.
@@ -110,13 +110,19 @@ router.post('/medico', [authMiddleware.check], medicoController.create);
  *         schema:
  *           type: integer
  *         description: O ID do medico.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/NovoMedico'
  *     responses:
  *       '200':
  *         description: Dados do medico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/medico'
+ *               $ref: '#/components/schemas/Medico'
  *       '500':
  *         description: Erro no servidor.
  */
@@ -141,11 +147,7 @@ router.put('/medico/:id', [authMiddleware.check], medicoController.update);
  *         description: O ID do medico.
  *     responses:
  *       '200':
- *         description: Dados do medico.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/medico'
+ *         description: médico excluído com sucesso.
  *       '404':
  *         description: medico não encontrado.
  */
@@ -167,22 +169,18 @@ router.delete('/medico/:id', [authMiddleware.check], medicoController.delete);
  *         required: true
  *         schema:
  *           type: integer
- *         description: O ID do médico que receberá a clinica.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/novaClinica'
+ *         description: O ID do médico.
  *     responses:
- *       '201':
- *         description: clinica criada e associada ao médico.
+ *       '200':
+ *         description: Lista de clínicas associadas ao médico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/clinica'
- *       '400':
- *         description: Dados da clinica são inválidos.
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Clinica'
+ *       '404':
+ *         description: Nenhuma clínica encontrada.
  */
 //retorna todas as clinicas associadas a um médico
 router.get('/medico/:id_medico/clinica', [authMiddleware.check], clinicaController.findByJogador);
@@ -208,14 +206,14 @@ router.get('/medico/:id_medico/clinica', [authMiddleware.check], clinicaControll
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/novaClinica'
+ *             $ref: '#/components/schemas/NovaClinica'
  *     responses:
  *       '201':
- *         description: clinica criada e o associada ao médico.
+ *         description: clinica criada e associada ao médico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/clinica'
+ *               $ref: '#/components/schemas/Clinica'
  *       '400':
  *         description: Dados da clinica são inválidos.
  */
@@ -224,7 +222,7 @@ router.post('/medico/:id_medico/clinica', [authMiddleware.check], clinicaControl
 
 /**
  * @swagger
- * /medico/{id_medico}/clinica/:id_clinica:
+ * /medico/{id_medico}/clinica/{id_clinica}:
  *   put:
  *     summary: Atualiza uma clinica associada a um médico
  *     description: Modifica uma clinica associada a um médico.
@@ -238,19 +236,25 @@ router.post('/medico/:id_medico/clinica', [authMiddleware.check], clinicaControl
  *         schema:
  *           type: integer
  *         description: O ID do medico que terá a clinica atualizada.
+ *       - in: path
+ *         name: id_clinica
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: O ID da clinica a ser atualizada.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/novaClinica'
+ *             $ref: '#/components/schemas/NovaClinica'
  *     responses:
- *       '201':
+ *       '200':
  *         description: Clinica atualizada com sucesso.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Equipamento'
+ *               $ref: '#/components/schemas/Clinica'
  *       '500':
  *         description: Dados da clinica inválidos.
  */

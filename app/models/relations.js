@@ -7,6 +7,7 @@ module.exports = function (models) {
       name: 'id_medico',
       allowNull: true, 
     },
+    as: 'clinicas',
     onDelete: 'SET NULL',
   });
   //este relacionamento poderia estar em app/models/Clinica:

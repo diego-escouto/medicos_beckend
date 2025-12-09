@@ -92,3 +92,31 @@ Este repositório não inclui uma suíte de testes automatizados. Para verificar
 
 Contribuições bem-vindas: abertura de issues, correções de bugs e melhorias na documentação. Para mudanças maiores, abra uma issue descrevendo a proposta antes de submeter PR.
 
+## Dados para criação para testes em API
+
+### /cliente
+
+{
+    "nome":"{{$randomFullName}}",
+    "email":"{{$randomEmail}}",
+    "senha":"12345678"
+
+}
+
+
+### /Médico
+
+{
+    "nome":"{{$randomFullName}}",
+    "crm":"{{$randomPhoneNumber}}",
+    "especialidade":"{{$randomDepartment}}"
+
+}
+
+### /Clinica
+
+{
+  "razaoSocial": "CTR",
+  "cep": "88521000",
+  "cnpj": "12.345.678/0001-90"
+}

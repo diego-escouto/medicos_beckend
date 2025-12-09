@@ -48,7 +48,9 @@ class Medico {
 
   static async findAll(clinica) {
     try {
-      const resultados = await MedicoModel.findAll({ include: clinica }); //{where ...}
+      const resultados = await MedicoModel.findAll({ 
+        include: [{ association: 'clinicas', attributes: ['id', 'razaoSocial', 'cep', 'cnpj'] }]
+      }); //{where ...}
       if (resultados) {
         return resultados;
       } else {

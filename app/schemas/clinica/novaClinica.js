@@ -1,7 +1,7 @@
 module.exports = {
   type: 'object',
   properties: {
-    rezaSocial: { type: 'string' },
+    razaoSocial: { type: 'string' },
     cep: { type: 'string' },
     cnpj: { type: 'string' },
   },

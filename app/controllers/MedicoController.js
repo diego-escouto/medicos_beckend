@@ -9,8 +9,7 @@ const Medico = models.medico.Medico;
 
 class MedicoController {
   findAll(request, response) {
-    const clinicaModel = models.clinica.clinicaModel;
-    Medico.findAll(clinicaModel)
+    Medico.findAll()
       .then((data) => {
         if (data) {
           return response.status(200).json(data);
