@@ -13,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000', // A URL base do seu servidor (verifique em seu .env)
+        url: 'http://localhost:3000' || 'https://medicos-beckend.onrender.com/api-docs', // A URL base do seu servidor (verifique em seu .env)
         description: 'Servidor de Desenvolvimento',
       },
     ],

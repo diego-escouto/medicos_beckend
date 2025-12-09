@@ -72,7 +72,7 @@ O servidor usará a porta definida em `PORT` (ou 3000 por padrão). A rota raiz 
 
 ## Documentação (Swagger)
 
-Após iniciar a aplicação, abra: `http://localhost:<PORT>/api-docs`.
+Após iniciar a aplicação, abra: `https://medicos-beckend.onrender.com/api-docs`.
 
 Observação: para que os endpoints apareçam no Swagger, mantenha comentários JSDoc/Swagger nas rotas em `app/routes/`.
 
