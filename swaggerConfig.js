@@ -1,6 +1,7 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const config = require('./config');
 const novaClinica = require('./app/schemas/clinica/novaClinica');
+const novoMedico = require('./app/schemas/medico/novoMedico');
 
 const options = {
   definition: {
@@ -38,7 +39,7 @@ const options = {
 
           }
         },
-        NovoJogador: {
+        novoMedico: {
           type: 'object',
           required: ['nome', 'crm', 'especialidade'],
           properties: {
