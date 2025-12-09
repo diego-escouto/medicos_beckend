@@ -1,7 +1,7 @@
 const express = require('express');
 var router = express.Router();
-const jogadorController = require('../controllers/MedicoController.js');
-const equipamentoController = require('../controllers/ClinicaController.js');
+const medicoController = require('../controllers/MedicoController.js');
+const clinicaController = require('../controllers/ClinicaController.js');
 const authMiddleware = require('../middlewares/TokenValido.js');
 
 /**
@@ -79,7 +79,7 @@ router.get('/medico/:id', [authMiddleware.check], medicoController.find);
  *     tags: [medico]
  *     security:
  *       - bearerAuth: []
- *     requestBody:
+ *     requestBody: teste
  *       required: true
  *       content:
  *         application/json:

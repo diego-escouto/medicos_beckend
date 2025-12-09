@@ -73,7 +73,7 @@ const ClinicaModel = db.define('clinica', {
   },
   id_medico: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   razaoSocial: {
     type: Sequelize.STRING(80),
@@ -89,4 +89,4 @@ const ClinicaModel = db.define('clinica', {
   },
 });
 
-module.exports = { Clinica, EquipamentoModel };
+module.exports = { Clinica, ClinicaModel };

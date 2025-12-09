@@ -1,16 +1,16 @@
 //foi optado em implementar os relacionamentos em arquivo separado
 //porem cada relacionamento pode ser implementado dentro de sua model separadamente
 module.exports = function (models) {
-  //este relacionamento poderia estar em app/models/Advogado:
-  models.advogado.hasMany(models.processo, {
+  //este relacionamento poderia estar em app/models/Medico:
+  models.medico.hasMany(models.clinica, {
     foreignKey: {
-      name: 'id_advogado',
-      allowNull: true, // <-- CORREÇÃO: Especifica que a FK pode ser nula
+      name: 'id_medico',
+      allowNull: true, 
     },
     onDelete: 'SET NULL',
   });
-  //este relacionamento poderia estar em app/models/Processo:
-  models.processo.belongsTo(models.advogado, {
-    foreignKey: 'id_advogado',
+  //este relacionamento poderia estar em app/models/Clinica:
+  models.clinica.belongsTo(models.medico, {
+    foreignKey: 'id_medico',
   });
 };
