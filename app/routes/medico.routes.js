@@ -72,7 +72,7 @@ router.get('/medico/:id', [authMiddleware.check], medicoController.find);
 
 /**
  * @swagger
- * /medico:
+ * /medico/create:
  *   post:
  *     summary: Cria um novo medico
  *     description: Cadastra um novo medico no sistema.
@@ -92,7 +92,7 @@ router.get('/medico/:id', [authMiddleware.check], medicoController.find);
  *         description: Dados inválidos.
  */
 //cria um novo medico
-router.post('/medico', [authMiddleware.check], medicoController.create);
+router.post('/medico/create', [authMiddleware.check], medicoController.create);
 
 /**
  * @swagger

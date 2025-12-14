@@ -107,9 +107,9 @@ Contribuições bem-vindas: abertura de issues, correções de bugs e melhorias 
 ### /Médico
 
 {
-    "nome":"{{$randomFullName}}",
-    "crm":"{{$randomPhoneNumber}}",
-    "especialidade":"{{$randomDepartment}}"
+    "nome":"diego escouto",
+    "crm":"88888888",
+    "especialidade":"neuro"
 
 }
 

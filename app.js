@@ -10,7 +10,8 @@ const swaggerDocs = require('./swaggerConfig'); // Importa a configuração
 app.use(express.json()); //parser dados de requisicoes em JSON
 app.use(
   cors({
-    origin: '*',
+    origin: 'http://localhost:5173',
+    credentials: true,
   })
 );
 
