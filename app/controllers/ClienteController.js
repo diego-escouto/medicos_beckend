@@ -38,7 +38,7 @@ class ClienteController {
       });
   }
 
-  login(request, response) {
+  async login(request, response) {
     let validacoes = validacaoLogin(request.body);
     if (!validacoes) {
       let mensagem = validacaoLogin.errors[0].instancePath.replace('/', '');
@@ -50,6 +50,20 @@ class ClienteController {
 
     let dados = request.body;
     dados.senha = helper.hashSenha(dados.senha);
+    // Verificar reCAPTCHA (espera-se token no corpo como `recaptchaToken`)
+    const recaptchaToken = request.body.recaptchaToken;
+    if (!recaptchaToken) {
+      return response.status(400).json({ message: 'recaptcha token missing' });
+    }
+
+    try {
+      const recaptchaResult = await helper.verifyRecaptchaToken(recaptchaToken);
+      if (!recaptchaResult || !recaptchaResult.success) {
+        return response.status(403).json({ message: 'reCAPTCHA verification failed', details: recaptchaResult });
+      }
+    } catch (err) {
+      return response.status(500).json({ message: 'reCAPTCHA verification error', error: err.message });
+    }
 
     Cliente.findOne(dados)
       .then((registro) => {
