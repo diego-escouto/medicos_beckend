@@ -12,13 +12,20 @@ app.use(
     // para evitar problemas com esquemas/ports diferentes (http/https/5173).
     // Em produção, usamos a lista restrita via callback (FRONTEND_ORIGIN).
     origin: isDev
-      ? true
-      : function (origin, callback) {
-          const allowed = [process.env.FRONTEND_ORIGIN].filter(Boolean);
-          if (!origin) return callback(null, true);
-          if (allowed.indexOf(origin) !== -1) return callback(null, true);
-          return callback(new Error('CORS origin denied: ' + origin));
-        },
+        ? true
+        : function (origin, callback) {
+            const allowed = [process.env.FRONTEND_ORIGIN].filter(Boolean);
+            // Se não houver FRONTEND_ORIGIN configurado no ambiente, permitimos temporariamente
+            // quaisquer origens (útil para depuração no Render). Em produção, defina FRONTEND_ORIGIN.
+            if (allowed.length === 0) {
+              console.warn('CORS: no FRONTEND_ORIGIN configured — allowing any origin (debug mode)');
+              return callback(null, true);
+            }
+            if (!origin) return callback(null, true);
+            if (allowed.indexOf(origin) !== -1) return callback(null, true);
+            console.warn('CORS origin denied:', origin);
+            return callback(new Error('CORS origin denied: ' + origin));
+          },
     credentials: true,
   })
 );
