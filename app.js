@@ -10,7 +10,7 @@ const swaggerDocs = require('./swaggerConfig'); // Importa a configuração
 app.use(express.json()); //parser dados de requisicoes em JSON
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://medicos-beckend.onrender.com',
     credentials: true,
   })
 );
