@@ -39,8 +39,32 @@ class ClienteController {
   }
 
   async login(request, response) {
+    // Se o corpo vier como string por algum motivo, tentamos converter.
+    if (typeof request.body === 'string') {
+      try {
+        request.body = JSON.parse(request.body);
+        console.warn('[login] parsed request.body from string');
+      } catch (e) {
+        console.warn('[login] request.body is string but not valid JSON');
+      }
+    }
+
+    // Log do tipo recebido (ajuda no diagnóstico)
+    try {
+      console.warn('[login] request.body (type):', typeof request.body);
+    } catch (e) {
+      /* ignore */
+    }
+
     let validacoes = validacaoLogin(request.body);
     if (!validacoes) {
+      // Log temporário para diagnosticar payload inválido
+      try {
+        console.warn('[login] request.body:', JSON.stringify(request.body));
+      } catch (e) {
+        console.warn('[login] request.body (non-serializable)');
+      }
+
       let mensagem = validacaoLogin.errors[0].instancePath.replace('/', '');
       mensagem += ' ' + validacaoLogin.errors[0].message;
       return response.status(400).json({
@@ -50,20 +74,6 @@ class ClienteController {
 
     let dados = request.body;
     dados.senha = helper.hashSenha(dados.senha);
-    // Verificar reCAPTCHA (espera-se token no corpo como `recaptchaToken`)
-    const recaptchaToken = request.body.recaptchaToken;
-    if (!recaptchaToken) {
-      return response.status(400).json({ message: 'recaptcha token missing' });
-    }
-
-    try {
-      const recaptchaResult = await helper.verifyRecaptchaToken(recaptchaToken);
-      if (!recaptchaResult || !recaptchaResult.success) {
-        return response.status(403).json({ message: 'reCAPTCHA verification failed', details: recaptchaResult });
-      }
-    } catch (err) {
-      return response.status(500).json({ message: 'reCAPTCHA verification error', error: err.message });
-    }
 
     Cliente.findOne(dados)
       .then((registro) => {

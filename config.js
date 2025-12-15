@@ -4,9 +4,6 @@ module.exports = {
     secret: process.env.SECRET,
     expiration: 3600,
   }, //3600 = 1 hora em segundos
-  recaptcha: {
-    secret: process.env.RECAPTCHA_SECRET_KEY || null,
-  },
   dbconfig: {
     host: process.env.DBHOST,
     database: process.env.DBNAME,
