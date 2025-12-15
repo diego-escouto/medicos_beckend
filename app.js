@@ -31,6 +31,9 @@ const clienteRotas = require('./app/routes/cliente.routes.js');
 app.use(medicoRotas);
 app.use(clienteRotas);
 
+// Health check e rota raiz simples para evitar 404 no host
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
+app.get('/', (req, res) => res.status(200).send('API medicos backend'));
 //RODANDO SERVER
 app.listen(config.port, () => {
   console.log('servidor on-line');
